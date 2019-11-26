@@ -16,10 +16,10 @@ app.use(methodOverride('_method'))
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 
-const MONGODB_URI = 'mongodb+srv://books:Chinonso@mylibrarydb-fot7c.mongodb.net/test?retryWrites=true&w=majority'
+// const MONGODB_URI = 'mongodb+srv://books:Chinonso@mylibrarydb-fot7c.mongodb.net/test?retryWrites=true&w=majority'
 
 const mongoose = require('mongoose')
-mongoose.connect(MONGODB_URI || process.env.DATABASE_URL, { useNewUrlParser: true })
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
@@ -32,5 +32,4 @@ app.use('/', indexRouter)
 app.use('/authors', authorRouter)
 app.use('/books', bookRouter)
 
-const port = process.env.PORT || 3000
-app.listen(port, () => console.log('SERVER IS RUNNING!!!'))
+app.listen(process.env.PORT || 3000)
